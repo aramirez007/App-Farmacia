@@ -1,0 +1,119 @@
+{% extends "AppFarmacia/base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<script src="{% static 'Categorias/js/categorias.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'AppFarmacia/css/estilo_tablas.css' %}">
+
+
+<div class="container py-5">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col"><h2>Categorias</h2></div>
+            <div class="col align-self-center">
+                <button type="button" class="btn btn-success float-end" data-toggle="modal" data-target="#añadirCategoria">
+                    <i class="fa-solid fa-circle-plus"></i> Añadir</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-4">
+        <div class="row justify-content-around">
+            <div class="col">
+
+                <!-- Modal Añadir Categoria-->
+                <div class="modal fade" id="añadirCategoria" tabindex="-1" role="dialog" aria-labelledby="añadirCategoriaTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Añadir categoria</h5>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col">
+                                            <form id="nuevaCategoria-form" action="{% url 'crear_categoria' %}" method="post">
+                                                {% csrf_token %}
+
+                                                {{ form.as_p }}
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary float-start" data-dismiss="modal">Cerrar</button>
+                                                    <button onclick="guardarCategoria()" class="btn btn-success float-right">Guardar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="card mb-4">
+                    
+                    <!-- Páginación -->
+                    <div class="card-header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="pagination justify-content-center">
+                                        <span class="step-links">
+                                            {% if categorias.has_previous %}
+                                            <a href="?page=1">&laquo; Primera</a>
+                                            <a href="?page={{ categorias.previous_page_number }}">Anterior</a>
+                                            {% endif %}
+        
+                                            <span class="current">
+                                                Página {{ categorias.number }} de {{ categorias.paginator.num_pages }}
+                                            </span>
+        
+                                            {% if categorias.has_next %}
+                                            <a href="?page={{ categorias.next_page_number }}">Siguiente</a>
+                                            <a href="?page={{ categorias.paginator.num_pages }}">Última &raquo;</a>
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contenido -->
+                    <div class="card-body">
+                        {% for categoria in categorias %}
+                            <div class="row">
+                                <div class="col d-inline p-2">
+                                    <div id="listaCards" class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <ul class="list-group">
+                                                    <a href="{% url 'editar_categoria' categoria.id %}" data-toggle="tooltip" title="Ver Detalle" class="text-dark">
+
+                                                        <li class="list-group"><div class="row"><h4>{{ categoria.id }} - {{ categoria.nombre }}</h4></div></li>
+                                                        <li class="list-group"><div class="row"><h6>{{ categoria.decripcion }}</h6></div></li>
+                                                    </a>
+                                                </ul>
+                                            </div>
+                                            <div class="col align-self-center">
+                                                <a onclick="eliminarCategoria()" href="{% url 'eliminar_categoria' categoria.id %}" class="btn btn-danger float-end">
+                                                    <i class="fa-solid fa-trash"></i> Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "AppFarmacia/base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'AppFarmacia/css/estilo_tablas.css' %}">
+
+<div class="container py-5">
+    <div class="jumbotron">
+        <h2 class="d-inline">Inicio</h2>
+    </div>
+
+    <div class="container-fluid py-5">
+        <div class="row justify-content-center">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="padding: 15px;">
+                <a href="{% url 'ventas' %}">
+                    <div class="card">
+                        <div class="card-header bg-secondary text-white"><h5>Ventas</h5></div>
+                        <div class="card-body"><img  src="{% static 'AppFarmacia/img/ventas.png' %}" alt=""></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="padding: 15px;">
+                <a href="{% url 'categorias' %}">
+                    <div class="card">
+                        <div class="card-header bg-secondary text-white"><h5>Categorias</h5></div>
+                        <div class="card-body"><img src="{% static 'AppFarmacia/img/categorias.png' %}" alt=""></div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3" style="padding: 15px;">
+                <a href="{% url 'productos' %}">
+                    <div class="card">
+                        <div class="card-header bg-secondary text-white"><h5>Productos</h5></div>
+                        <div class="card-body"><img src="{% static 'AppFarmacia/img/productos.png' %}" alt=""></div>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

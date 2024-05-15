@@ -1,0 +1,111 @@
+
+/* Estilo para los controles de paginación */
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+    
+}
+
+.pagination a {
+    color: #007bff;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.pagination a:hover:not(.current) {
+    background-color: #f2f2f2;
+}
+
+.pagination .current {
+    background-color: teal;
+    color: white;
+    padding: 8px 16px;
+}
+
+.pagination .step-links {
+    display: inline-block;
+    padding: 4px 8px;
+}
+
+.pagination .step-links a {
+    display: inline-block;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    margin-right: 4px;
+    text-decoration: none;
+    color: teal;
+}
+
+.pagination .step-links a:hover {
+    background-color: #f2f2f2;
+}
+
+/* Estilos generales */
+
+.jumbotron{
+    box-shadow: 2px 2px #dee2e6;
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+tbody a{
+    text-decoration: none;
+    color: brown;
+}
+
+table tbody{
+    cursor: pointer;
+}
+
+.card{
+    box-shadow: 2px 2px #dee2e6;
+    border: 1px solid #dee2e6;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#listaCards{
+    box-shadow: 2px 2px #dee2e6;
+    border: 1px solid #dee2e6;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#listaCards a{
+    text-decoration: none;
+}
+
+#listaCards:hover{
+    background-color: #f2f2f2;
+}
+
+
+.container-fluid {
+    display: inline;
+    
+}
+
+img{
+    width: 55%;
+    display: inline-block;
+}
+
+a{
+    text-decoration: none;
+}
+
+#listaCarroDetalle{
+    box-shadow: 2px 2px #dee2e6;
+    border: 1px solid #dee2e6;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+#listaCarroDetalle:hover{
+    background-color: #f2f2f2;
+}

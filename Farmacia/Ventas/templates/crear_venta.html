@@ -1,0 +1,187 @@
+{% extends "AppFarmacia/base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<script src="{% static 'Ventas/js/crear_venta.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'AppFarmacia/css/estilo_tablas.css' %}">
+
+<div class="container py-5">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col">
+                <h2>Crear Venta</h2>
+            </div>
+            <div class="col align-self-center">
+                <button type="button" class="btn btn-success float-end" data-toggle="modal"
+                    data-target="#añadirProducto">
+                    <i class="fa-solid fa-circle-plus"></i> Añadir Producto</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-4">
+        <div class="row justify-content-around">
+            <div class="col">
+
+                <!-- Modal Añadir Productos -->
+                <div class="modal fade" id="añadirProducto" tabindex="-1" role="dialog"
+                    aria-labelledby="añadirProductoTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Añadir producto</h5>
+                                <button type="button" class="btn btn-warning float-left"
+                                    data-dismiss="modal">Cerrar</button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                    <table id="productoAcarro">
+                                        <tbody>
+                                            <tr>
+                                                <div class="form-group row">
+                                                    <label name="producto"
+                                                        class="col col-lg-2 col-form-label">Producto</label>
+                                                    <div class="col">
+                                                        <input type="search" class="form-control" id="producto"
+                                                            data-toggle="modal" data-target="#buscarProducto"
+                                                            placeholder="Click para buscar producto">
+                                                    </div>
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <td class="col-md">
+                                                    <div class="form-group">
+                                                        <label name="descripcion"
+                                                            class="col col-lg-2 col-form-label">Descripcion</label>
+                                                    </div>
+                                                    <div class="col">
+                                                        <input id="descripcion" type="text" class="form-control"
+                                                            placeholder="Descripcion" disabled="true" required>
+                                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <label name="precio" class="col col-lg-2 col-form-label">Precio</label>
+                                    <div class="col ">
+                                        <input id="precio" type="number" class="form-control" placeholder="Precio"
+                                            disabled="true">
+                                    </div>
+                                </div>
+                                </td>
+                                <td class="col-md">
+                                    <div class="form-group">
+                                        <label name="Existencias"
+                                            class="col col-lg-2 col-form-label">Existencias</label>
+                                        <div class="col">
+                                            <input id="existencias" type="number" class="form-control"
+                                                placeholder="Existencias" disabled="true">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="form-group">
+                                        <label name="cantidad" class="col col-lg-2 col-form-label">Cantidad</label>
+                                        <div class="col">
+                                            <input id="cantidad" type="number" class="form-control"
+                                                placeholder="Cantidad">
+                                        </div>
+                                    </div>
+                                </td>
+                                </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success" onclick="aniadirAlCarro()"><i
+                                    class="fa-solid fa-plus"></i>Añadir al carro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Lista de Productos -->
+            <div class="modal fade" id="buscarProducto" tabindex="-1" role="dialog"
+                aria-labelledby="buscarProductoTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Productos</h5>
+                            <button type="button" class="btn btn-warning float-left"
+                                data-dismiss="modal">Cerrar</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col">
+                                        <table class="table">
+
+                                            <tbody>
+                                                {% for producto in productoscarro %}
+                                                <tr data-dismiss="modal" onclick="seleccionarProducto('{{producto.id}}', '{{producto.nombre}}'
+                                                            ,'{{ producto.descripcion }}', '{{ producto.cantidad_en_stock }}'
+                                                            ,'{{ producto.precio }}'
+                                                        )">
+                                                    <td>{{ producto.nombre }}</td>
+                                                    <td>{{ producto.descripcion }}</td>
+                                                    <td>{{ producto.precio }}</td>
+                                                    <td>{{ producto.cantidad_en_stock }}</td>
+                                                    <td>{{ producto.fecha_caducidad }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form id="formCrearVenta" action="{% url 'crear_venta' %}" method="post">
+                {% csrf_token %}
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <div id="contenidoCarro" class="scroll-area" style="max-height: 300px; overflow-y: auto;">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col col-lg-2">
+                            <table class="table">
+                                <tr>
+                                    <td><label for="noproductos"><b>No. de Productos:</b></label></td>
+                                    <td>
+                                        <p id="noproductos">#</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label for="totalVenta"><b>Total:</b></label></td>
+                                    <td>
+                                        <p id="totalVenta" name="totalVenta">0</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col align-self-center">
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary" onclick="obtenerDatos()">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

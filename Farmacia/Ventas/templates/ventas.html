@@ -1,0 +1,86 @@
+{% extends "AppFarmacia/base.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'AppFarmacia/css/estilo_tablas.css' %}">
+
+
+<div class="container py-5">
+    <div class="jumbotron">
+        <div class="row">
+            <div class="col"><h2>Ventas</h2></div>
+            <div class="col align-self-center">
+                <a type="button" href="{% url 'crear_venta' %}" class="btn btn-success float-end">
+                    <i class="fa-solid fa-circle-plus"></i> Crear</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-4">
+        <div class="row justify-content-around">
+            <div class="col">
+                <div class="card mb-4">
+                    
+                    <!-- Páginación -->
+                    <div class="card-header">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="pagination justify-content-center">
+                                        <span class="step-links">
+                                            {% if ventas.has_previous %}
+                                            <a href="?page=1">&laquo; Primera</a>
+                                            <a href="?page={{ ventas.previous_page_number }}">Anterior</a>
+                                            {% endif %}
+
+                                            <span class="current">
+                                                Página {{ ventas.number }} de {{ ventas.paginator.num_pages }}
+                                            </span>
+
+                                            {% if ventas.has_next %}
+                                            <a href="?page={{ ventas.next_page_number }}">Siguiente</a>
+                                            <a href="?page={{ ventas.paginator.num_pages }}">Última &raquo;</a>
+                                            {% endif %}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- Contenido -->
+                    <div class="card-body">
+                        {% for venta in ventas %}
+                            <div class="row">
+                                <div class="col d-inline p-2">
+                                    <div id="listaCards" class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <ul class="list-group">
+                                                    <a href="#" data-toggle="tooltip" title="Ver Detalle" class="text-dark">
+
+                                                        <li class="list-group"><div class="row"><h4>{{ venta.fecha_venta }} - {{ venta.username }}</h4></div></li>
+                                                        <li class="list-group"><div class="row"><h6><i class="fa-solid fa-dollar-sign"></i> {{ venta.total }}</h6></div></li>
+                                                    </a>
+                                                </ul>
+                                            </div>
+                                            <div class="col align-self-center">
+                                                <a href="#" class="btn btn-danger float-end"><i class="fa-solid fa-trash"></i> Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
