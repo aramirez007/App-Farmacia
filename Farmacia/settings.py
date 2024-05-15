@@ -89,14 +89,10 @@ WSGI_APPLICATION = 'Farmacia.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'AppFarmacia', 
-        'USER': 'postgres',
-        'PASSWORD': '12345',
-        'HOST': 'localhost', 
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(
+        default='postgresql://postgres:postgres@localhost/postgres',
+        conn_max_age=600
+    )
 }
 
 
