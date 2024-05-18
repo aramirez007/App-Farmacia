@@ -4,8 +4,8 @@
 
 {% load static %}
 
-<script src="{% static 'Categorias/js/categorias.js' %}"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'AppFarmacia/css/estilo_tablas.css' %}">
+<script src="{% static 'Categorias/Categorias.js' %}"></script>
 
 
 <div class="container py-5">
@@ -34,14 +34,14 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col">
-                                            <form id="nuevaCategoria-form" action="{% url 'crear_categoria' %}" method="post">
+                                            <form id="nuevaCategoria-form" action="{% url 'crear_categoria' %}" method="POST">
                                                 {% csrf_token %}
 
                                                 {{ form.as_p }}
 
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary float-start" data-dismiss="modal">Cerrar</button>
-                                                    <button onclick="guardarCategoria()" class="btn btn-success float-right">Guardar</button>
+                                                    <button type="submit" class="btn btn-success float-right" onclick="guardarCategoria()">Guardar</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -99,7 +99,7 @@
                                                 </ul>
                                             </div>
                                             <div class="col align-self-center">
-                                                <a onclick="eliminarCategoria()" href="{% url 'eliminar_categoria' categoria.id %}" class="btn btn-danger float-end">
+                                                <a class="btn btn-danger float-end" onclick="eliminarCategoria('{{ categoria.id }}')" >
                                                     <i class="fa-solid fa-trash"></i> Eliminar</a>
                                             </div>
                                         </div>
@@ -113,7 +113,5 @@
         </div>
     </div>
 </div>
-
-
 
 {% endblock %}

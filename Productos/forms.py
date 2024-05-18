@@ -1,6 +1,5 @@
 from django import forms
 from .models import Productos
-
 class ProductosForm(forms.ModelForm):
     class Meta:
         model = Productos
@@ -12,5 +11,5 @@ class ProductosForm(forms.ModelForm):
             'precio': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Ingresa el precio'}),
             'cantidad_en_stock': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Cantidad en Stock'}),
             'fecha_caducidad': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'categoria': forms.SelectMultiple(attrs={'class': 'form-control dropdown'}),
+            'categoria': forms.Select(attrs={'class': 'form-select form-select-sm'}),
         }
