@@ -104,9 +104,9 @@ function obtenerDatos(){
     });
 
     Swal.fire({
-        title: '¿Envíar venta?',
-        //text: '¿Quieres realizar esta acción?',
-        icon: 'question',
+        title: '¿Envíar?',
+        text: 'Se guardarán los detalles de la venta.',
+        icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
@@ -118,13 +118,6 @@ function obtenerDatos(){
             //Enviamos la petición AJAX
             enviarDatos(detalleDatosVenta, totalVenta);
 
-            Swal.fire({
-                title: 'Listo!',
-                text: 'Se ha completado la venta.',
-                icon: 'success',
-                timer: 2000,
-                timerProgressBar: true
-            });
         }
     });
 }
@@ -146,7 +139,17 @@ function enviarDatos(datos, totalventa){
         
         if(response.ok){
             console.log("Datos enviados correctamente!!!");
-            window.location.href = '/ventas/';
+            Swal.fire({
+                title: 'Se ha completado la venta.',
+                //text: '',
+                icon: 'success',
+                timer: 2000,
+                timerProgressBar: true
+            });
+
+            setTimeout(()=>{
+                location.reload();
+            }, 2000);
 
         }else{
             console.log("Error al enviar los datos.");

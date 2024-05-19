@@ -7,15 +7,17 @@ function guardarCategoria() {
   
     fetch('', {
       method: 'POST',
-      body: formData,
       headers: {
         'Content-Type': 'application/json',
         'X-CSRFToken': csrfToken
-      }
+      },
+      body: formData
   
     }).then(function (response) {
 
       if (response.ok) {
+        console.log("Datos guardados correctamente!");
+
         Swal.fire({
           title: "Categoria Agregada.",
           icon: "success",
@@ -23,12 +25,10 @@ function guardarCategoria() {
           timerProgressBar: true
         });
         
-        setTimeout(() =>{
+        setTimeout(()=>{
           location.reload();
         }, 2000);
         
-        console.log("Datos guardados correctamente!");
-
       } else {
         throw new Error('Hubo un problema al aguardar la nueva categoria');
 
