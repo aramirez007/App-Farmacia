@@ -118,11 +118,13 @@ function obtenerDatos(){
             //Enviamos la petición AJAX
             enviarDatos(detalleDatosVenta, totalVenta);
 
-            Swal.fire(
-                'Listo!',
-                'Se ha completado la venta.',
-                'success'
-            );
+            Swal.fire({
+                title: 'Listo!',
+                text: 'Se ha completado la venta.',
+                icon: 'success',
+                timer: 2000,
+                timerProgressBar: true
+            });
         }
     });
 }
